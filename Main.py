@@ -1,6 +1,6 @@
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, ExtraTreesClassifier
 import csv
 import numpy as np
 from datetime import datetime as dt
@@ -17,10 +17,11 @@ test = []
 classifiers = [
     KNeighborsClassifier(3),
     DecisionTreeClassifier(),
-    RandomForestClassifier(n_estimators=100, max_features=None),
-    AdaBoostClassifier()]
+    RandomForestClassifier(n_estimators = 50, max_features = None,  n_jobs = -1),
+    AdaBoostClassifier(),
+    ExtraTreesClassifier()]
 
-names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "AdaBoost"]
+names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "AdaBoost", "ExtraTreesClassifier"]
 
 
 for i in range(1, len(FILE)):
