@@ -1,5 +1,4 @@
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 import csv
@@ -16,15 +15,13 @@ target = []
 test = []
 
 classifiers = [
-    KNeighborsClassifier(3)]
-    #DecisionTreeClassifier(max_depth=5),
-    #RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    #AdaBoostClassifier()]
+    KNeighborsClassifier(3),
+    DecisionTreeClassifier(),
+    RandomForestClassifier(n_estimators=100, max_features=None),
+    AdaBoostClassifier()]
 
-names = ["Nearest Neighbors"]
-#"Decision Tree", "Random Forest", "AdaBoost"]
+names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "AdaBoost"]
 
-#clf = RandomForestClassifier(n_estimators = 10, max_features = None, criterion = 'gini', oob_score = True, n_jobs = -1)
 
 for i in range(1, len(FILE)):
     if FILE[i][4] != "-" and FILE[i][4] != "?":
@@ -57,14 +54,14 @@ for i in range(len(predictions[0])):
     predLab2 = 0
     for j in range(len(predictions)):
         # print v[j][i]
-        if predictions[j][i] == 0:
+        if predictions[j][i] == "0":
             predLab0 = predLab0 + 1
-        if predictions[j][i] == 1:
+        if predictions[j][i] == "1":
             predLab1 = predLab1 + 1
-        if predictions[j][i] == 2:
+        if predictions[j][i] == "2":
             predLab2 = predLab2 + 1
 
-    #print(predLab0, predLab1, predLab2)
+    print(predLab0, predLab1, predLab2)
     if i==0:
         if ((predLab0 >= predLab1) and (predLab0 >= predLab2)):
             prediction = [0]
@@ -83,8 +80,8 @@ for i in range(len(predictions[0])):
                 prediction = prediction + [2]
 
 
-np.savetxt('Predictio.txt', prediction, fmt="%s")
+np.savetxt('Prediction.txt', prediction, fmt="%s")
 
 print("Done")
 print(prediction)
-np.savetxt('Predictions.txt', predictions, fmt ="%s")
+np.savetxt('Predictions.txt', predictions, fmt="%s")
