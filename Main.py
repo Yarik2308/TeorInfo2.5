@@ -15,9 +15,9 @@ target = []
 test = []
 
 classifiers = [
-    KNeighborsClassifier(3),
+    KNeighborsClassifier(),
     DecisionTreeClassifier(),
-    RandomForestClassifier(n_estimators = 50, max_features = None,  n_jobs = -1),
+    RandomForestClassifier(n_estimators=90, max_features=None, n_jobs=-1),
     AdaBoostClassifier(),
     ExtraTreesClassifier()]
 
@@ -27,11 +27,13 @@ names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "AdaBoost", "Ext
 for i in range(1, len(FILE)):
     if FILE[i][4] != "-" and FILE[i][4] != "?":
         if 0 <= int(FILE[i][4]) <= 2:
-            time = float(dt.fromtimestamp(int(FILE[i][3])).hour) + float(dt.fromtimestamp(int(FILE[i][3])).minute) / 60.
+            time = float(dt.fromtimestamp(int(FILE[i][3])).hour) + float(dt.fromtimestamp(int(FILE[i][3])).minute) / 60. \
+                   + float(dt.fromtimestamp(int(FILE[i][3])).second) / 3600.
             data.append([float(FILE[i][0]), float(FILE[i][1]), time])
             target.append(FILE[i][4])
     if FILE[i][4] == "?":
-        time = float(dt.fromtimestamp(int(FILE[i][3])).hour) + float(dt.fromtimestamp(int(FILE[i][3])).minute) / 60.
+        time = float(dt.fromtimestamp(int(FILE[i][3])).hour) + float(dt.fromtimestamp(int(FILE[i][3])).minute) / 60. \
+               + float(dt.fromtimestamp(int(FILE[i][3])).second) / 3600.
         test.append([float(FILE[i][0]), float(FILE[i][1]), time])
 
 b = True
@@ -46,6 +48,7 @@ for name, clf in zip(names, classifiers):
         predictions = np.vstack((predictions,clf.predict(test)))
     print name + " predicted"
 
+np.savetxt('Predictions.txt', predictions, fmt="%s")
 
 prediction = []
 for i in range(len(predictions[0])):
@@ -84,5 +87,3 @@ for i in range(len(predictions[0])):
 np.savetxt('Prediction.txt', prediction, fmt="%s")
 
 print("Done")
-print(prediction)
-np.savetxt('Predictions.txt', predictions, fmt="%s")
