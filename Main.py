@@ -17,9 +17,9 @@ test = []
 classifiers = [
     KNeighborsClassifier(),
     DecisionTreeClassifier(),
-    RandomForestClassifier(n_estimators=90, max_features=None, n_jobs=-1),
-    AdaBoostClassifier(),
-    ExtraTreesClassifier()]
+    RandomForestClassifier(n_estimators=100, max_features=None, n_jobs=-1),
+    AdaBoostClassifier(n_estimators=100),
+    ExtraTreesClassifier(n_estimators=100, max_features=None, n_jobs=-1)]
 
 names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "AdaBoost", "ExtraTreesClassifier"]
 
