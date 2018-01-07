@@ -4,9 +4,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, ExtraTr
 import csv
 import numpy as np
 from datetime import datetime as dt
-import time
 
-start = time.time()
 
 FILE = list(csv.reader(open('transport_data.csv', 'r')))
 
@@ -65,7 +63,6 @@ for i in range(len(predictions[0])):
         if predictions[j][i] == "2":
             predLab2 = predLab2 + 1
 
-    print(predLab0, predLab1, predLab2)
     if i==0:
         if ((predLab0 >= predLab1) and (predLab0 >= predLab2)):
             prediction = [0]
